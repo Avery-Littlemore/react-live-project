@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-// import ProgressBarList from './components/ProgressBarList'
 import ProgressBar from './components/ProgressBar'
 
 interface ProgressBar {
@@ -10,7 +9,7 @@ interface ProgressBar {
 
 function App() {
   const [progressBars, setProgressBars] = useState<ProgressBar[]>([])
-  const [nextAvailable, setNextAvailable] = useState(1)
+  const [nextAvailable, setNextAvailable] = useState([1,2,3,4,5])
 
   const handleNewProgressBar = () => {
     setProgressBars(prev => prev.concat({
@@ -20,12 +19,14 @@ function App() {
   }
 
   const handleComplete = () => {
-    setNextAvailable(prev => prev += 1)
+    setNextAvailable(prev => {
+      return prev.slice(1).concat(prev[prev.length - 1] + 1)
+  })
   }
 
   return (
     <div>
-      {progressBars.map(pb => <ProgressBar key={pb.id} isRunning={nextAvailable === pb.id} onComplete={handleComplete} />)}
+      {progressBars.map(pb => <ProgressBar key={pb.id} isRunning={nextAvailable.includes(pb.id)} onComplete={handleComplete} />)}
       <button onClick={handleNewProgressBar}>New Progress Bar</button>
     </div>
   )

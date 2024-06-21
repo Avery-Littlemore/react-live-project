@@ -24,16 +24,20 @@ const ProgressBar = ({isRunning, onComplete}: ProgressBarProps) => {
       
       return () => {
         clearInterval(progressInterval);
-        clearTimeout(timeoutId);   
+        clearTimeout(timeoutId);
       };
     }
   }, [isRunning]); 
 
   
   return (
-    <div className="progressbar">
-      <div style={{"width": `${progress}%`}}>{progress}%</div>
-    </div>
+    <>
+      <div className="progressbar">
+        <div style={{"width": `${progress}%`}}>{progress}%</div>
+        {/* <button>click me</button> */}
+      </div>
+      
+    </>
   )
 }
 
